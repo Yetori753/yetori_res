@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vladislav — Portfolio</title>
+    <!-- Подключаем чистый моноширинный/гротеск шрифт -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Тёмная тема (по умолчанию, как на aibodh.com) */
+            --bg-color: #0a0a0a;
+            --surface-color: #121212;
+            --border-color: #262626;
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --accent-color: #ffffff;
+            --hover-bg: #1a1a1a;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            /* Светлая тема */
+            --bg-color: #fafafa;
+            --surface-color: #ffffff;
+            --border-color: #e4e4e7;
+            --text-primary: #09090b;
+            --text-secondary: #71717a;
+            --accent-color: #000000;
+            --hover-bg: #f4f4f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 4rem 1.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+        }
+
+        /* Хедер и переключатель темы */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-title h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-title p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--hover-bg);
+        }
+
+        /* Табы / Навигация */
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-btn.active {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+        }
+
+        /* Контент табов */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Секция About */
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .contact-cta {
+            margin-top: 1.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+
+        .contact-cta:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--text-secondary);
+        }
+
+        /* Секция Skills & Interests */
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .skill-group h3 {
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Секция Projects */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-card {
+            border: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            border-color: var(--text-secondary);
+            background-color: var(--hover-bg);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .project-link-icon {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Футер */
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="profile-title">
+                <h1>Vladislav</h1>
+                <p>Developer & Open Source Contributor</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span id="themeIcon">☀️</span>
+                <span id="themeText">Light</span>
+            </button>
+        </header>
+
+        <!-- Навигационные табы -->
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('about')">About</button>
+            <button class="nav-btn" onclick="switchTab('skills')">Skills</button>
+            <button class="nav-btn" onclick="switchTab('projects')">Projects</button>
+        </nav>
+
+        <!-- Вкладка: ABOUT -->
+        <section id="about" class="tab-content active">
+            <p class="about-text">
+                Hello! My name is <strong>Vladislav</strong>. I am a developer with a strong passion for open-source development and blockchain technology. 
+            </p>
+            <p class="about-text">
+                I build Telegram Mini Apps, bots, smart contracts, web applications, Web3 solutions, and desktop software.
+            </p>
+
+            <a href="https://t.me/vladf15" target="_blank" rel="noopener noreferrer" class="contact-cta">
+                💬 Get in touch on Telegram ↗
+            </a>
+        </section>
+
+        <!-- Вкладка: SKILLS -->
+        <section id="skills" class="tab-content">
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>Programming</h3>
+                    <div class="tag-list">
+                        <span class="tag">Rust</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Tech Stack</h3>
+                    <div class="tag-list">
+                        <span class="tag">Linux</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Git</span>
+                        <span class="tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Interests</h3>
+                    <div class="tag-list">
+                        <span class="tag">Blockchain</span>
+                        <span class="tag">Distributed Systems</span>
+                        <span class="tag">Artificial Intelligence</span>
+                        <span class="tag">Web Apps</span>
+                        <span class="tag">Telegram Mini Apps</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Spoken Languages</h3>
+                    <div class="tag-list">
+                        <span class="tag">English (C1)</span>
+                        <span class="tag">Russian (Native)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Вкладка: PROJECTS -->
+        <section id="projects" class="tab-content">
+            <div class="project-list">
+                
+                <!-- URL Shortener -->
+                <a href="https://github.com/Yetori753/Url_Short.git" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">URL Shortener</span>
+                        <span class="project-link-icon">GitHub ↗</span>
+                    </div>
+                    <p class="project-desc">A lightweight and efficient URL shortening service built with modern backend practices.</p>
+                </a>
+
+                <!-- Web3 Casino -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">Web3 Casino</span>
+                        <span class="project-link-icon">In Development</span>
+                    </div>
+                    <p class="project-desc">Decentralized gambling platform utilizing smart contracts for transparent and provably fair gameplay.</p>
+                </div>
+
+                <!-- Torrent Client -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">Torrent Client</span>
+                        <span class="project-link-icon">Project</span>
+                    </div>
+                    <p class="project-desc">Custom peer-to-peer torrent client implemented to explore distributed file sharing networks.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Подвал -->
+        <footer>
+            <span>© Vladislav</span>
+            <div class="footer-links">
+                <a href="https://t.me/vladf15" target="_blank" rel="noopener noreferrer">Telegram</a>
+                <a href="https://github.com/Yetori753" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Переключение тем
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            }
+        }
+
+        // Определение первичной темы
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // Переключение табов
+        function switchTab(tabId) {
+            // Удаляем активный класс со всех кнопок и панелей
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Добавляем активный класс на нужную кнопку и панель
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
