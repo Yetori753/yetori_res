@@ -1,1 +1,1 @@
-# yetori753.github.io
+ori.github.io
