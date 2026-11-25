@@ -248,6 +248,42 @@
             font-size: 0.875rem;
         }
 
+        /* Карточка проекта со скриншотом */
+        .project-shot {
+            display: block;
+            margin-bottom: 1.1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .project-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.4s ease;
+        }
+
+        .project-shot:hover img {
+            transform: scale(1.015);
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.9rem;
+        }
+
+        .project-tags .tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            background-color: transparent;
+            color: var(--text-secondary);
+        }
+
         /* Футер */
         footer {
             margin-top: 3rem;
@@ -368,23 +404,22 @@
                     <p class="project-desc">A lightweight and efficient URL shortening service built with modern backend practices.</p>
                 </a>
 
-                <!-- Web3 Casino -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">Web3 Casino</span>
-                        <span class="project-link-icon">In Development</span>
+                <!-- spiderx_w -->
+                <a href="https://github.com/Yetori753/spiderx_w.git" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <div class="project-shot">
+                        <img src="spiderx_w.png" width="1463" height="861" loading="lazy" alt="spiderx_w — wallet dashboard with balance, deposit and send SOL forms on Solana devnet">
                     </div>
-                    <p class="project-desc">Decentralized gambling platform utilizing smart contracts for transparent and provably fair gameplay.</p>
-                </div>
-
-                <!-- Torrent Client -->
-                <div class="project-card">
                     <div class="project-header">
-                        <span class="project-title">Torrent Client</span>
-                        <span class="project-link-icon">Project</span>
+                        <span class="project-title">spiderx_w</span>
+                        <span class="project-link-icon">Prototype · GitHub ↗</span>
                     </div>
-                    <p class="project-desc">Custom peer-to-peer torrent client implemented to explore distributed file sharing networks.</p>
-                </div>
+                    <p class="project-desc">A custodial prototype of a blockchain-based exchange on Solana.</p>
+                    <div class="project-tags">
+                        <span class="tag">Rust</span>
+                        <span class="tag">Solana</span>
+                        <span class="tag">Devnet</span>
+                    </div>
+                </a>
 
             </div>
         </section>
